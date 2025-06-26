@@ -1,0 +1,422 @@
+[
+  {
+    "id": "terra-kulture-cafe",
+    "name": "Terra Kulture Café",
+    "slug": "terra-kulture-cafe",
+    "address": "1376 Tiamiyu Savage Street, Victoria Island, Lagos",
+    "coordinates": {
+      "lat": 6.4281,
+      "lng": 3.4219
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "quiet-zone", "coffee-bar", "local-art", "book-exchange"],
+    "hours": {
+      "monday": "8:00 AM - 10:00 PM",
+      "tuesday": "8:00 AM - 10:00 PM",
+      "wednesday": "8:00 AM - 10:00 PM",
+      "thursday": "8:00 AM - 10:00 PM",
+      "friday": "8:00 AM - 11:00 PM",
+      "saturday": "9:00 AM - 11:00 PM",
+      "sunday": "10:00 AM - 9:00 PM"
+    },
+    "description": "A cultural hub combining art, literature, and excellent coffee. Perfect for creative professionals with its inspiring atmosphere and reliable WiFi.",
+    "images": [
+      "https://images.pexels.com/photos/2159065/pexels-photo-2159065.jpeg",
+      "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg"
+    ],
+    "rating": 4.8,
+    "reviews": 156,
+    "featured": true
+  },
+  {
+    "id": "the-place-cafe",
+    "name": "The Place Café",
+    "slug": "the-place-cafe",
+    "address": "45 Isaac John Street, Ikeja GRA, Lagos",
+    "coordinates": {
+      "lat": 6.5964,
+      "lng": 3.3515
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "meeting-rooms", "food-menu", "coffee-bar", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 9:00 PM",
+      "tuesday": "7:00 AM - 9:00 PM",
+      "wednesday": "7:00 AM - 9:00 PM",
+      "thursday": "7:00 AM - 9:00 PM",
+      "friday": "7:00 AM - 10:00 PM",
+      "saturday": "8:00 AM - 10:00 PM",
+      "sunday": "9:00 AM - 8:00 PM"
+    },
+    "description": "Modern workspace café in the heart of Ikeja with dedicated meeting rooms and excellent Nigerian cuisine alongside international coffee selections.",
+    "images": [
+      "https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg",
+      "https://images.pexels.com/photos/2467558/pexels-photo-2467558.jpeg"
+    ],
+    "rating": 4.6,
+    "reviews": 203,
+    "featured": true
+  },
+  {
+    "id": "cafe-neo-lekki",
+    "name": "Café Neo Lekki",
+    "slug": "cafe-neo-lekki",
+    "address": "Admiralty Way, Lekki Phase 1, Lagos",
+    "coordinates": {
+      "lat": 6.4474,
+      "lng": 3.4553
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "quiet-zone", "coffee-bar", "outdoor-seating"],
+    "hours": {
+      "monday": "6:30 AM - 10:00 PM",
+      "tuesday": "6:30 AM - 10:00 PM",
+      "wednesday": "6:30 AM - 10:00 PM",
+      "thursday": "6:30 AM - 10:00 PM",
+      "friday": "6:30 AM - 11:00 PM",
+      "saturday": "7:00 AM - 11:00 PM",
+      "sunday": "8:00 AM - 9:00 PM"
+    },
+    "description": "Nigeria's premium coffee chain offering world-class coffee and a conducive environment for remote work in the upscale Lekki area.",
+    "images": [
+      "https://images.pexels.com/photos/1002740/pexels-photo-1002740.jpeg",
+      "https://images.pexels.com/photos/683039/pexels-photo-683039.jpeg"
+    ],
+    "rating": 4.7,
+    "reviews": 189,
+    "featured": true
+  },
+  {
+    "id": "book-cafe-yaba",
+    "name": "Book Café Yaba",
+    "slug": "book-cafe-yaba",
+    "address": "12 Tejuosho Street, Yaba, Lagos",
+    "coordinates": {
+      "lat": 6.5158,
+      "lng": 3.3696
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "quiet-zone", "book-exchange", "coffee-bar", "tea-selection"],
+    "hours": {
+      "monday": "8:00 AM - 8:00 PM",
+      "tuesday": "8:00 AM - 8:00 PM",
+      "wednesday": "8:00 AM - 8:00 PM",
+      "thursday": "8:00 AM - 8:00 PM",
+      "friday": "8:00 AM - 9:00 PM",
+      "saturday": "9:00 AM - 9:00 PM",
+      "sunday": "10:00 AM - 7:00 PM"
+    },
+    "description": "A literary haven in tech-savvy Yaba, perfect for developers and writers seeking inspiration among books and quality coffee.",
+    "images": [
+      "https://images.pexels.com/photos/2899737/pexels-photo-2899737.jpeg",
+      "https://images.pexels.com/photos/1405355/pexels-photo-1405355.jpeg"
+    ],
+    "rating": 4.9,
+    "reviews": 134,
+    "featured": false
+  },
+  {
+    "id": "royal-gardens-cafe",
+    "name": "Royal Gardens Café",
+    "slug": "royal-gardens-cafe",
+    "address": "15 Reservation Road, GRA, Benin City, Edo State",
+    "coordinates": {
+      "lat": 6.3350,
+      "lng": 5.6037
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "outdoor-seating", "coffee-bar", "food-menu", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 9:00 PM",
+      "tuesday": "7:00 AM - 9:00 PM",
+      "wednesday": "7:00 AM - 9:00 PM",
+      "thursday": "7:00 AM - 9:00 PM",
+      "friday": "7:00 AM - 10:00 PM",
+      "saturday": "8:00 AM - 10:00 PM",
+      "sunday": "9:00 AM - 8:00 PM"
+    },
+    "description": "Elegant café in Benin City's prestigious GRA, offering a serene garden setting perfect for productive work sessions and client meetings.",
+    "images": [
+      "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg",
+      "https://images.pexels.com/photos/2899727/pexels-photo-2899727.jpeg"
+    ],
+    "rating": 4.5,
+    "reviews": 87,
+    "featured": false
+  },
+  {
+    "id": "bronze-cafe-benin",
+    "name": "Bronze Café",
+    "slug": "bronze-cafe-benin",
+    "address": "42 Akpakpava Road, Benin City, Edo State",
+    "coordinates": {
+      "lat": 6.3176,
+      "lng": 5.6037
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "coffee-bar", "local-art", "food-menu"],
+    "hours": {
+      "monday": "7:30 AM - 8:30 PM",
+      "tuesday": "7:30 AM - 8:30 PM",
+      "wednesday": "7:30 AM - 8:30 PM",
+      "thursday": "7:30 AM - 8:30 PM",
+      "friday": "7:30 AM - 9:30 PM",
+      "saturday": "8:30 AM - 9:30 PM",
+      "sunday": "9:30 AM - 7:30 PM"
+    },
+    "description": "Cultural café celebrating Benin's rich bronze heritage, providing a creative workspace with local art displays and artisanal coffee.",
+    "images": [
+      "https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg",
+      "https://images.pexels.com/photos/2260840/pexels-photo-2260840.jpeg"
+    ],
+    "rating": 4.3,
+    "reviews": 76,
+    "featured": false
+  },
+  {
+    "id": "yellow-chilli-abuja",
+    "name": "Yellow Chilli Café",
+    "slug": "yellow-chilli-abuja",
+    "address": "Plot 903 Tafawa Balewa Way, Area 11, Garki, Abuja",
+    "coordinates": {
+      "lat": 9.0579,
+      "lng": 7.4951
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "food-menu", "coffee-bar", "events-space", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 10:00 PM",
+      "tuesday": "7:00 AM - 10:00 PM",
+      "wednesday": "7:00 AM - 10:00 PM",
+      "thursday": "7:00 AM - 10:00 PM",
+      "friday": "7:00 AM - 11:00 PM",
+      "saturday": "8:00 AM - 11:00 PM",
+      "sunday": "9:00 AM - 9:00 PM"
+    },
+    "description": "Abuja's favorite spot for remote workers, combining excellent Indian-Nigerian fusion cuisine with a professional work environment.",
+    "images": [
+      "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg",
+      "https://images.pexels.com/photos/2899727/pexels-photo-2899727.jpeg"
+    ],
+    "rating": 4.5,
+    "reviews": 167,
+    "featured": true
+  },
+  {
+    "id": "hub-cafe-wuse",
+    "name": "Hub Café Wuse",
+    "slug": "hub-cafe-wuse",
+    "address": "Plot 1161 Memorial Drive, Wuse II, Abuja",
+    "coordinates": {
+      "lat": 9.0765,
+      "lng": 7.4951
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "meeting-rooms", "events-space", "coffee-bar", "food-menu"],
+    "hours": {
+      "monday": "7:00 AM - 10:00 PM",
+      "tuesday": "7:00 AM - 10:00 PM",
+      "wednesday": "7:00 AM - 10:00 PM",
+      "thursday": "7:00 AM - 10:00 PM",
+      "friday": "7:00 AM - 11:00 PM",
+      "saturday": "8:00 AM - 11:00 PM",
+      "sunday": "9:00 AM - 9:00 PM"
+    },
+    "description": "Central Abuja's premier co-working café, hosting tech meetups and providing excellent facilities for remote professionals.",
+    "images": [
+      "https://images.pexels.com/photos/2159065/pexels-photo-2159065.jpeg",
+      "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg"
+    ],
+    "rating": 4.6,
+    "reviews": 145,
+    "featured": false
+  },
+  {
+    "id": "cafe-royale-asokoro",
+    "name": "Café Royale Asokoro",
+    "slug": "cafe-royale-asokoro",
+    "address": "Plot 1234 Yakubu Gowon Crescent, Asokoro, Abuja",
+    "coordinates": {
+      "lat": 9.0579,
+      "lng": 7.4951
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "meeting-rooms", "coffee-bar", "outdoor-seating", "parking", "events-space"],
+    "hours": {
+      "monday": "6:30 AM - 10:00 PM",
+      "tuesday": "6:30 AM - 10:00 PM",
+      "wednesday": "6:30 AM - 10:00 PM",
+      "thursday": "6:30 AM - 10:00 PM",
+      "friday": "6:30 AM - 11:00 PM",
+      "saturday": "7:30 AM - 11:00 PM",
+      "sunday": "8:30 AM - 9:00 PM"
+    },
+    "description": "Luxury café experience in diplomatic Asokoro, offering premium amenities and an elegant environment for high-level business meetings.",
+    "images": [
+      "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg",
+      "https://images.pexels.com/photos/2899727/pexels-photo-2899727.jpeg"
+    ],
+    "rating": 4.9,
+    "reviews": 187,
+    "featured": true
+  },
+  {
+    "id": "marina-resort-cafe",
+    "name": "Marina Resort Café",
+    "slug": "marina-resort-cafe",
+    "address": "11 Marina Road, Calabar, Cross River State",
+    "coordinates": {
+      "lat": 4.9517,
+      "lng": 8.3220
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "outdoor-seating", "coffee-bar", "city-view", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 9:00 PM",
+      "tuesday": "7:00 AM - 9:00 PM",
+      "wednesday": "7:00 AM - 9:00 PM",
+      "thursday": "7:00 AM - 9:00 PM",
+      "friday": "7:00 AM - 10:00 PM",
+      "saturday": "8:00 AM - 10:00 PM",
+      "sunday": "9:00 AM - 8:00 PM"
+    },
+    "description": "Waterfront café in beautiful Calabar offering stunning marina views and a peaceful atmosphere perfect for remote work and relaxation.",
+    "images": [
+      "https://images.pexels.com/photos/2899737/pexels-photo-2899737.jpeg",
+      "https://images.pexels.com/photos/1405355/pexels-photo-1405355.jpeg"
+    ],
+    "rating": 4.7,
+    "reviews": 123,
+    "featured": false
+  },
+  {
+    "id": "canopy-cafe-calabar",
+    "name": "Canopy Café",
+    "slug": "canopy-cafe-calabar",
+    "address": "23 Murtala Mohammed Highway, Calabar, Cross River State",
+    "coordinates": {
+      "lat": 4.9517,
+      "lng": 8.3220
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "quiet-zone", "coffee-bar", "food-menu", "outdoor-seating"],
+    "hours": {
+      "monday": "7:30 AM - 8:30 PM",
+      "tuesday": "7:30 AM - 8:30 PM",
+      "wednesday": "7:30 AM - 8:30 PM",
+      "thursday": "7:30 AM - 8:30 PM",
+      "friday": "7:30 AM - 9:30 PM",
+      "saturday": "8:30 AM - 9:30 PM",
+      "sunday": "9:00 AM - 7:30 PM"
+    },
+    "description": "Tropical-themed café with lush greenery, providing a natural canopy setting ideal for creative work and peaceful productivity.",
+    "images": [
+      "https://images.pexels.com/photos/1002740/pexels-photo-1002740.jpeg",
+      "https://images.pexels.com/photos/683039/pexels-photo-683039.jpeg"
+    ],
+    "rating": 4.4,
+    "reviews": 98,
+    "featured": false
+  },
+  {
+    "id": "cocoa-house-cafe",
+    "name": "Cocoa House Café",
+    "slug": "cocoa-house-cafe",
+    "address": "Cocoa House, Dugbe, Ibadan, Oyo State",
+    "coordinates": {
+      "lat": 7.3775,
+      "lng": 3.9470
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "coffee-bar", "food-menu", "city-view", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 8:00 PM",
+      "tuesday": "7:00 AM - 8:00 PM",
+      "wednesday": "7:00 AM - 8:00 PM",
+      "thursday": "7:00 AM - 8:00 PM",
+      "friday": "7:00 AM - 9:00 PM",
+      "saturday": "8:00 AM - 9:00 PM",
+      "sunday": "9:00 AM - 7:00 PM"
+    },
+    "description": "Historic café in Ibadan's iconic Cocoa House, offering panoramic city views and a prestigious workspace environment for professionals.",
+    "images": [
+      "https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg",
+      "https://images.pexels.com/photos/2260840/pexels-photo-2260840.jpeg"
+    ],
+    "rating": 4.6,
+    "reviews": 142,
+    "featured": false
+  },
+  {
+    "id": "plateau-peak-cafe",
+    "name": "Plateau Peak Café",
+    "slug": "plateau-peak-cafe",
+    "address": "15 Yakubu Gowon Way, Jos, Plateau State",
+    "coordinates": {
+      "lat": 9.8965,
+      "lng": 8.8583
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "outdoor-seating", "coffee-bar", "tea-selection", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 8:00 PM",
+      "tuesday": "7:00 AM - 8:00 PM",
+      "wednesday": "7:00 AM - 8:00 PM",
+      "thursday": "7:00 AM - 8:00 PM",
+      "friday": "7:00 AM - 9:00 PM",
+      "saturday": "8:00 AM - 9:00 PM",
+      "sunday": "9:00 AM - 7:00 PM"
+    },
+    "description": "Mountain-view café in Jos offering cool climate and fresh air, perfect for remote work with stunning Plateau landscapes as your backdrop.",
+    "images": [
+      "https://images.pexels.com/photos/2159065/pexels-photo-2159065.jpeg",
+      "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg"
+    ],
+    "rating": 4.8,
+    "reviews": 156,
+    "featured": false
+  },
+  {
+    "id": "sahel-sands-cafe",
+    "name": "Sahel Sands Café",
+    "slug": "sahel-sands-cafe",
+    "address": "12 Ahmadu Bello Way, Kano, Kano State",
+    "coordinates": {
+      "lat": 12.0022,
+      "lng": 8.5920
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "quiet-zone", "coffee-bar", "food-menu", "meeting-rooms"],
+    "hours": {
+      "monday": "6:30 AM - 9:00 PM",
+      "tuesday": "6:30 AM - 9:00 PM",
+      "wednesday": "6:30 AM - 9:00 PM",
+      "thursday": "6:30 AM - 9:00 PM",
+      "friday": "6:30 AM - 10:00 PM",
+      "saturday": "7:30 AM - 10:00 PM",
+      "sunday": "8:30 AM - 8:00 PM"
+    },
+    "description": "Northern Nigeria's premier business café, blending traditional Hausa hospitality with modern workspace amenities in the commercial heart of Kano.",
+    "images": [
+      "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg",
+      "https://images.pexels.com/photos/2899727/pexels-photo-2899727.jpeg"
+    ],
+    "rating": 4.5,
+    "reviews": 134,
+    "featured": false
+  },
+  {
+    "id": "oil-city-cafe",
+    "name": "Oil City Café",
+    "slug": "oil-city-cafe",
+    "address": "45 Aba Road, Port Harcourt, Rivers State",
+    "coordinates": {
+      "lat": 4.8156,
+      "lng": 7.0498
+    },
+    "amenities": ["high-speed-wifi", "power-outlets", "coffee-bar", "food-menu", "events-space", "parking"],
+    "hours": {
+      "monday": "7:00 AM - 9:00 PM",
+      "tuesday": "7:00 AM - 9:00 PM",
+      "wednesday": "7:00 AM - 9:00 PM",
+      "thursday": "7:00 AM - 9:00 PM",
+      "friday": "7:00 AM - 10:00 PM",
+      "saturday": "8:00 AM - 10:00 PM",
+      "sunday": "9:00 AM - 8:00 PM"
+    },
+    "description": "Port Harcourt's energy sector hub café, popular among oil industry professionals and entrepreneurs for networking and productive work sessions.",
+    "images": [
+      "https://images.pexels.com/photos/2899737/pexels-photo-2899737.jpeg",
+      "https://images.pexels.com/photos/1405355/pexels-photo-1405355.jpeg"
+    ],
+    "rating": 4.4,
+    "reviews": 178,
+    "featured": false
+  }
+]

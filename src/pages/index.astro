@@ -1,0 +1,76 @@
+---
+import '../styles/globals.css';
+import Layout from '../layouts/Layout.astro';
+import { Header } from '../components/Header';
+import { HeroSection } from '../components/HeroSection';
+import { CafeCard } from '../components/CafeCard';
+import { ThemeProvider } from '../components/ThemeProvider';
+import cafesData from '../data/cafes.json';
+
+const featuredCafes = cafesData.filter(cafe => cafe.featured);
+---
+
+<Layout title="CaféWork - Find Your Perfect Remote Work Café">
+	<ThemeProvider client:load>
+		<div class="min-h-screen bg-background">
+			<Header client:load />
+			<main>
+				<HeroSection client:load />
+				
+				<section class="py-20 px-4 bg-gradient-to-b from-muted/30 to-background">
+					<div class="container mx-auto">
+						<div class="text-center mb-16">
+							<h2 class="text-4xl font-serif font-bold mb-6 text-foreground">Featured Cafés</h2>
+							<p class="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+								Hand-picked cafés that our community loves for remote work and productivity. 
+								<span class="text-primary font-medium">Get personalized recommendations</span> when you visit our café finder.
+							</p>
+						</div>
+						
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+							{featuredCafes.map((cafe) => (
+								<CafeCard cafe={cafe} client:load />
+							))}
+						</div>
+						
+						<div class="text-center mt-16">
+							<a 
+								href="/cafes" 
+								class="inline-flex items-center justify-center rounded-cafe font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 hover:-translate-y-1 h-12 px-8 py-3 cafe-button shadow-cafe dark:shadow-cafe-dark font-serif text-base"
+							>
+								Get Smart Recommendations
+							</a>
+						</div>
+					</div>
+				</section>
+			</main>
+		</div>
+	</ThemeProvider>
+</Layout>
+
+<style>
+	/* Additional cafe-inspired styles */
+	section {
+		position: relative;
+	}
+	
+	section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: var(--coffee-grain-bg);
+		opacity: 0.02;
+		pointer-events: none;
+	}
+	
+	.light section::before {
+		--coffee-grain-bg: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4BEA2' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	}
+	
+	.dark section::before {
+		--coffee-grain-bg: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C7A17A' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	}
+</style>

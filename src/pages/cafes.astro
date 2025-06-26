@@ -1,0 +1,24 @@
+---
+import '../styles/globals.css'
+import Layout from '../layouts/Layout.astro';
+import { Header } from '../components/Header';
+import { ThemeProvider } from '../components/ThemeProvider';
+import { CafeListingPage } from '../components/CafeListingPage';
+---
+
+<Layout title="Find Cafés - CaféWork">
+	<ThemeProvider client:load>
+		<div class="min-h-screen bg-background">
+			<Header client:load />
+			<main class="container mx-auto px-4 py-8">
+				<div class="mb-8">
+					<h1 class="text-3xl font-bold mb-2">Find Your Perfect Café</h1>
+					<p class="text-muted-foreground">
+						Browse our curated collection of work-friendly cafés and find your ideal workspace.
+					</p>
+				</div>
+				<CafeListingPage client:load />
+			</main>
+		</div>
+	</ThemeProvider>
+</Layout>

@@ -1,0 +1,28 @@
+---
+import '../../styles/globals.css'
+import Layout from '../../layouts/Layout.astro';
+import { Header } from '../../components/Header';
+import { ThemeProvider } from '../../components/ThemeProvider';
+import { CafeDetailPage } from '../../components/CafeDetailPage';
+import cafesData from '../../data/cafes.json';
+
+export function getStaticPaths() {
+  return cafesData.map((cafe) => ({
+    params: { slug: cafe.slug },
+    props: { cafe },
+  }));
+}
+
+const { cafe } = Astro.props;
+---
+
+<Layout title={`${cafe.name} - CaféWork`}>
+	<ThemeProvider client:load>
+		<div class="min-h-screen bg-background">
+			<Header client:load />
+			<main>
+				<CafeDetailPage cafe={cafe} client:load />
+			</main>
+		</div>
+	</ThemeProvider>
+</Layout>

@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap') layer(base);
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-serif: Playfair Display, Georgia, serif;
+  --font-sans: Inter, system-ui, sans-serif;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --radius-cafe: 16px;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-coffee-50: #fff8e7;
+  --color-coffee-100: #f5e6d3;
+  --color-coffee-200: #e6dfd4;
+  --color-coffee-300: #d4bea2;
+  --color-coffee-400: #c7a17a;
+  --color-coffee-500: #8b7355;
+  --color-coffee-600: #6b5b47;
+  --color-coffee-700: #4a3428;
+  --color-coffee-800: #2d1f17;
+  --color-coffee-900: #1e1512;
+
+  --color-cream-50: #fffcf5;
+  --color-cream-100: #fff8e7;
+  --color-cream-200: #f5f0e1;
+  --color-cream-300: #e6dfd4;
+  --color-cream-400: #d4c7b8;
+  --color-cream-500: #c7a17a;
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --shadow-cafe: 0 4px 20px rgba(74, 52, 40, 0.1);
+  --shadow-cafe-lg: 0 8px 32px rgba(74, 52, 40, 0.15);
+  --shadow-cafe-dark: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-cafe-dark-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-menu:
+    0 2px 8px rgba(74, 52, 40, 0.08), 0 1px 3px rgba(74, 52, 40, 0.06);
+  --shadow-menu-dark:
+    0 2px 8px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+
+  --background-image-coffee-grain: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4BEA2' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --background-image-coffee-grain-dark: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C7A17A' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-stir: stir 2s linear infinite;
+  --animate-pour: pour 0.4s ease-out;
+  --animate-ripple: ripple 0.3s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes stir {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pour {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1.02);
+      opacity: 0.8;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility cafe-card {
+  /* Cafe-inspired component styles */
+  @apply bg-card border border-border rounded-cafe shadow-cafe;
+  @apply hover:shadow-cafe-lg hover:scale-[1.02] transition-all duration-300 ease-out;
+
+  .dark & {
+    @apply shadow-cafe-dark hover:shadow-cafe-dark-lg;
+  }
+}
+
+@utility dark {
+  & .cafe-card {
+    @apply shadow-cafe-dark hover:shadow-cafe-dark-lg;
+  }
+
+  & .cafe-button {
+    @apply shadow-menu-dark;
+  }
+}
+
+@utility cafe-button {
+  @apply rounded-cafe shadow-menu hover:shadow-menu-dark;
+  @apply active:scale-[0.98] transition-all duration-200 ease-out;
+
+  .dark & {
+    @apply shadow-menu-dark;
+  }
+}
+
+@utility menu-item {
+  @apply rounded-md transition-all duration-200 ease-out;
+  @apply hover:bg-accent hover:text-accent-foreground;
+  @apply focus:bg-accent focus:text-accent-foreground;
+}
+
+@utility staggered-fade-in {
+  &>* {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  &>*:nth-child(1) {
+    animation-delay: 0ms;
+  }
+
+  &>*:nth-child(2) {
+    animation-delay: 100ms;
+  }
+
+  &>*:nth-child(3) {
+    animation-delay: 200ms;
+  }
+
+  &>*:nth-child(4) {
+    animation-delay: 300ms;
+  }
+
+  &>*:nth-child(5) {
+    animation-delay: 400ms;
+  }
+
+  &>*:nth-child(6) {
+    animation-delay: 500ms;
+  }
+}
+
+@utility loading-stir {
+  @apply animate-stir;
+}
+
+@utility pour-in {
+  @apply animate-pour;
+}
+
+@utility ripple-hover {
+  &:hover {
+    @apply animate-ripple;
+  }
+}
+
+@layer base {
+  :root {
+    /* Light mode - Warm cafe colors */
+    --background: 45 100% 96%;
+    /* #FFF8E7 - warm cream */
+    --foreground: 25 35% 25%;
+    /* #4A3428 - deep coffee brown */
+    --card: 45 100% 98%;
+    /* slightly lighter cream for cards */
+    --card-foreground: 25 35% 25%;
+    --popover: 45 100% 98%;
+    --popover-foreground: 25 35% 25%;
+    --primary: 25 35% 25%;
+    /* #4A3428 - coffee brown */
+    --primary-foreground: 45 100% 96%;
+    /* cream text on coffee */
+    --secondary: 35 25% 85%;
+    /* #D4BEA2 - latte art color */
+    --secondary-foreground: 25 35% 25%;
+    --muted: 35 25% 90%;
+    /* lighter latte */
+    --muted-foreground: 25 20% 45%;
+    /* #8B7355 - medium coffee */
+    --accent: 35 25% 85%;
+    /* #D4BEA2 */
+    --accent-foreground: 25 35% 25%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 45 100% 96%;
+    --border: 35 25% 88%;
+    /* subtle latte border */
+    --input: 35 25% 88%;
+    --ring: 25 35% 25%;
+    /* coffee brown focus ring */
+    --chart-1: 25 35% 45%;
+    --chart-2: 35 25% 65%;
+    --chart-3: 45 30% 75%;
+    --chart-4: 25 20% 55%;
+    --chart-5: 35 30% 70%;
+    --radius: 16px;
+  }
+
+  .dark {
+    /* Dark mode - Rich espresso colors */
+    --background: 25 25% 8%;
+    /* #1E1512 - rich espresso */
+    --foreground: 35 25% 88%;
+    /* #E6DFD4 - soft cream */
+    --card: 25 25% 10%;
+    /* slightly lighter espresso for cards */
+    --card-foreground: 35 25% 88%;
+    --popover: 25 25% 10%;
+    --popover-foreground: 35 25% 88%;
+    --primary: 35 25% 88%;
+    /* cream for primary in dark */
+    --primary-foreground: 25 25% 8%;
+    /* espresso text on cream */
+    --secondary: 35 30% 20%;
+    /* dark caramel */
+    --secondary-foreground: 35 25% 88%;
+    --muted: 25 25% 15%;
+    /* darker espresso */
+    --muted-foreground: 35 20% 65%;
+    /* #C7A17A - caramel accent */
+    --accent: 35 30% 20%;
+    /* dark caramel */
+    --accent-foreground: 35 25% 88%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 35 25% 88%;
+    --border: 25 25% 18%;
+    /* subtle dark border */
+    --input: 25 25% 18%;
+    --ring: 35 25% 88%;
+    /* cream focus ring */
+    --chart-1: 35 25% 75%;
+    --chart-2: 35 30% 65%;
+    --chart-3: 25 20% 55%;
+    --chart-4: 35 25% 70%;
+    --chart-5: 25 30% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: var(--coffee-grain-bg);
+  }
+
+  .light body {
+    --coffee-grain-bg: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4BEA2' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .dark body {
+    --coffee-grain-bg: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C7A17A' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='15' cy='15' r='0.5'/%3E%3Ccircle cx='45' cy='45' r='0.5'/%3E%3Ccircle cx='45' cy='15' r='0.5'/%3E%3Ccircle cx='15' cy='45' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
