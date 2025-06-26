@@ -1,36 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Navigation, Cloud, Sun, CloudRain, SunSnow as Snow, Thermometer } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { MotionDiv, MotionButton } from '../components/ui/motion';
-import type { Cafe } from '../types/cafe';
+import React, { useState } from "react";
+import {
+  MapPin,
+  Navigation,
+  Cloud,
+  Sun,
+  CloudRain,
+  SunSnow as Snow,
+  Thermometer,
+} from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { MotionDiv, MotionButton } from "../components/ui/motion";
+import type { Cafe } from "../types/cafe";
 
-interface LocationServiceProps {
-  cafes: Cafe[];
-  onLocationUpdate: (location: GeolocationPosition | null) => void;
-  onRecommendationsUpdate: (recommendations: SmartRecommendation[]) => void;
-}
-
-interface WeatherData {
+type WeatherData = {
   temperature: number;
   condition: string;
   description: string;
   icon: string;
-}
-
-interface SmartRecommendation {
+};
+type SmartRecommendation = {
   cafe: Cafe;
   distance?: number;
   reason: string;
   priority: number;
   weatherMatch: boolean;
   timeMatch: boolean;
-}
+};
 
-const WEATHER_API_KEY = 'demo'; // In production, use environment variable
+type Props = {
+  cafes: Cafe[];
+  onLocationUpdate: (location: GeolocationPosition | null) => void;
+  onRecommendationsUpdate: (recommendations: SmartRecommendation[]) => void;
+};
 
-export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpdate }: LocationServiceProps) {
+const WEATHER_API_KEY = "demo";
+
+export function LocationService({
+  cafes,
+  onLocationUpdate,
+  onRecommendationsUpdate,
+}: Props) {
   const [location, setLocation] = useState<GeolocationPosition | null>(null);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,233 +51,206 @@ export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpda
     const now = new Date();
     return {
       hour: now.getHours(),
-      day: now.getDay(), // 0 = Sunday, 1 = Monday, etc.
-      dayName: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][now.getDay()]
+      dayName: [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ][now.getDay()],
     };
   };
 
-  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-    const R = 6371; // Earth's radius in kilometers
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c;
+  const calculateDistance = (
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number
+  ) => {
+    const R = 6371;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   };
 
   const getWeatherIcon = (condition: string) => {
-    const lowerCondition = condition.toLowerCase();
-    if (lowerCondition.includes('rain') || lowerCondition.includes('drizzle')) {
-      return <CloudRain className="h-4 w-4" />;
-    } else if (lowerCondition.includes('snow')) {
-      return <Snow className="h-4 w-4" />;
-    } else if (lowerCondition.includes('cloud')) {
-      return <Cloud className="h-4 w-4" />;
-    } else {
-      return <Sun className="h-4 w-4" />;
-    }
+    const c = condition.toLowerCase();
+    if (c.includes("rain")) return <CloudRain className="h-4 w-4" />;
+    if (c.includes("snow")) return <Snow className="h-4 w-4" />;
+    if (c.includes("cloud")) return <Cloud className="h-4 w-4" />;
+    return <Sun className="h-4 w-4" />;
   };
 
-  const isCurrentlyOpen = (cafe: Cafe): boolean => {
+  const isCurrentlyOpen = (cafe: Cafe) => {
     const { hour, dayName } = getCurrentTime();
     const todayHours = cafe.hours[dayName];
-    
-    if (!todayHours || todayHours === 'Closed') return false;
-    
+    if (!todayHours || todayHours === "Closed") return false;
     try {
-      const [openTime, closeTime] = todayHours.split(' - ').map(time => {
-        const [hourStr, period] = time.trim().split(' ');
-        const [hourNum] = hourStr.split(':').map(Number);
-        let adjustedHour = hourNum;
-        if (period === 'PM' && hourNum !== 12) adjustedHour += 12;
-        if (period === 'AM' && hourNum === 12) adjustedHour = 0;
-        return adjustedHour;
+      const [openTime, closeTime] = todayHours.split(" - ").map((time) => {
+        const [hourStr, period] = time.trim().split(" ");
+        let h = Number(hourStr.split(":")[0]);
+        if (period === "PM" && h !== 12) h += 12;
+        if (period === "AM" && h === 12) h = 0;
+        return h;
       });
-      
       return hour >= openTime && hour <= closeTime;
     } catch {
-      return true; // Default to open if parsing fails
+      return true;
     }
   };
 
-  const generateSmartRecommendations = (userLocation: GeolocationPosition, weatherData: WeatherData | null): SmartRecommendation[] => {
+  const generateSmartRecommendations = (
+    userLocation: GeolocationPosition,
+    weatherData: WeatherData | null
+  ): SmartRecommendation[] => {
     const { hour } = getCurrentTime();
     const userLat = userLocation.coords.latitude;
     const userLng = userLocation.coords.longitude;
-
-    const recommendations: SmartRecommendation[] = cafes.map(cafe => {
-      const distance = calculateDistance(userLat, userLng, cafe.coordinates.lat, cafe.coordinates.lng);
-      let reason = '';
-      let priority = 0;
-      let weatherMatch = false;
-      let timeMatch = false;
-
-      // Distance-based scoring
-      if (distance < 2) {
-        priority += 30;
-        reason = 'Very close to you';
-      } else if (distance < 5) {
-        priority += 20;
-        reason = 'Nearby location';
-      } else if (distance < 10) {
-        priority += 10;
-        reason = 'Within reasonable distance';
-      }
-
-      // Time-based recommendations
-      if (hour >= 6 && hour < 10) {
-        // Morning recommendations
-        if (cafe.amenities.includes('coffee-bar')) {
+    return cafes
+      .map((cafe) => {
+        const distance = calculateDistance(
+          userLat,
+          userLng,
+          cafe.coordinates.lat,
+          cafe.coordinates.lng
+        );
+        let reason = "",
+          priority = 0,
+          weatherMatch = false,
+          timeMatch = false;
+        if (distance < 2) {
+          priority += 30;
+          reason = "Very close to you";
+        } else if (distance < 5) {
+          priority += 20;
+          reason = "Nearby location";
+        } else if (distance < 10) {
+          priority += 10;
+          reason = "Within reasonable distance";
+        }
+        if (hour >= 6 && hour < 10 && cafe.amenities.includes("coffee-bar")) {
           priority += 15;
           timeMatch = true;
-          reason = reason ? `${reason} • Perfect for morning coffee` : 'Great morning coffee spot';
+          reason += " • Perfect for morning coffee";
         }
-      } else if (hour >= 10 && hour < 14) {
-        // Late morning/lunch recommendations
-        if (cafe.amenities.includes('food-menu')) {
+        if (hour >= 10 && hour < 14 && cafe.amenities.includes("food-menu")) {
           priority += 10;
           timeMatch = true;
-          reason = reason ? `${reason} • Good for lunch meetings` : 'Ideal for lunch and work';
+          reason += " • Good for lunch meetings";
         }
-      } else if (hour >= 14 && hour < 18) {
-        // Afternoon recommendations
-        if (cafe.amenities.includes('quiet-zone')) {
+        if (hour >= 14 && hour < 18 && cafe.amenities.includes("quiet-zone")) {
           priority += 12;
           timeMatch = true;
-          reason = reason ? `${reason} • Quiet afternoon workspace` : 'Perfect afternoon focus spot';
+          reason += " • Quiet afternoon workspace";
         }
-      } else {
-        // Evening recommendations
-        if (cafe.amenities.includes('events-space') || cafe.amenities.includes('outdoor-seating')) {
+        if (
+          (hour >= 18 || hour < 6) &&
+          (cafe.amenities.includes("events-space") ||
+            cafe.amenities.includes("outdoor-seating"))
+        ) {
           priority += 8;
           timeMatch = true;
-          reason = reason ? `${reason} • Great evening atmosphere` : 'Nice evening hangout';
+          reason += " • Great evening atmosphere";
         }
-      }
-
-      // Weather-based recommendations
-      if (weatherData) {
-        const temp = weatherData.temperature;
-        const condition = weatherData.condition.toLowerCase();
-
-        if (condition.includes('rain') || condition.includes('storm')) {
-          if (cafe.amenities.includes('parking') || cafe.amenities.includes('meeting-rooms')) {
+        if (weatherData) {
+          const temp = weatherData.temperature;
+          const cond = weatherData.condition.toLowerCase();
+          if (
+            cond.includes("rain") &&
+            (cafe.amenities.includes("parking") ||
+              cafe.amenities.includes("meeting-rooms"))
+          ) {
             priority += 15;
             weatherMatch = true;
-            reason = reason ? `${reason} • Covered parking for rainy weather` : 'Perfect shelter from the rain';
+            reason += " • Covered parking for rainy weather";
           }
-        } else if (temp > 25 && cafe.amenities.includes('outdoor-seating')) {
-          priority += 10;
-          weatherMatch = true;
-          reason = reason ? `${reason} • Great weather for outdoor seating` : 'Perfect weather for outdoor work';
-        } else if (temp < 15) {
-          if (cafe.amenities.includes('coffee-bar')) {
+          if (temp > 25 && cafe.amenities.includes("outdoor-seating")) {
+            priority += 10;
+            weatherMatch = true;
+            reason += " • Great weather for outdoor seating";
+          }
+          if (temp < 15 && cafe.amenities.includes("coffee-bar")) {
             priority += 8;
             weatherMatch = true;
-            reason = reason ? `${reason} • Warm up with great coffee` : 'Cozy spot to warm up';
+            reason += " • Warm up with great coffee";
           }
         }
-      }
-
-      // Featured cafes get bonus points
-      if (cafe.featured) {
-        priority += 10;
-      }
-
-      // High-rated cafes get bonus points
-      if (cafe.rating >= 4.7) {
-        priority += 8;
-      } else if (cafe.rating >= 4.5) {
-        priority += 5;
-      }
-
-      // Currently open cafes get priority
-      if (isCurrentlyOpen(cafe)) {
-        priority += 20;
-        reason = reason ? `${reason} • Open now` : 'Currently open';
-      } else {
-        priority -= 10;
-        reason = reason ? `${reason} • Currently closed` : 'Currently closed';
-      }
-
-      return {
-        cafe,
-        distance,
-        reason,
-        priority,
-        weatherMatch,
-        timeMatch
-      };
-    });
-
-    // Sort by priority and return top recommendations
-    return recommendations
+        if (cafe.featured) priority += 10;
+        if (cafe.rating >= 4.7) priority += 8;
+        else if (cafe.rating >= 4.5) priority += 5;
+        if (isCurrentlyOpen(cafe)) {
+          priority += 20;
+          reason += " • Open now";
+        } else {
+          priority -= 10;
+          reason += " • Currently closed";
+        }
+        return {
+          cafe,
+          distance,
+          reason: reason.replace(/^ • /, ""),
+          priority,
+          weatherMatch,
+          timeMatch,
+        };
+      })
       .sort((a, b) => b.priority - a.priority)
       .slice(0, 8);
   };
 
   const fetchWeather = async (lat: number, lng: number) => {
-    try {
-      // Mock weather data for demo - in production, use a real weather API
-      const mockWeatherData: WeatherData = {
-        temperature: Math.floor(Math.random() * 15) + 20, // 20-35°C
-        condition: ['Clear', 'Partly Cloudy', 'Cloudy', 'Light Rain'][Math.floor(Math.random() * 4)],
-        description: 'Pleasant weather for café visits',
-        icon: 'clear'
-      };
-      
-      setWeather(mockWeatherData);
-      return mockWeatherData;
-    } catch (error) {
-      console.error('Weather fetch failed:', error);
-      return null;
-    }
+    // Mock weather data for demo
+    const mock: WeatherData = {
+      temperature: Math.floor(Math.random() * 15) + 20,
+      condition: ["Clear", "Partly Cloudy", "Cloudy", "Light Rain"][
+        Math.floor(Math.random() * 4)
+      ],
+      description: "Pleasant weather for café visits",
+      icon: "clear",
+    };
+    setWeather(mock);
+    return mock;
   };
 
-  const requestLocation = async () => {
+  const requestLocation = () => {
     if (!navigator.geolocation) {
-      setError('Geolocation is not supported by this browser');
+      setError("Geolocation not supported");
       return;
     }
-
     setIsLoading(true);
     setError(null);
-
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        setLocation(position);
-        onLocationUpdate(position);
-        
-        // Fetch weather for the location
-        const weatherData = await fetchWeather(position.coords.latitude, position.coords.longitude);
-        
-        // Generate smart recommendations
-        const recommendations = generateSmartRecommendations(position, weatherData);
-        onRecommendationsUpdate(recommendations);
-        
+      async (pos) => {
+        setLocation(pos);
+        onLocationUpdate(pos);
+        const weatherData = await fetchWeather(
+          pos.coords.latitude,
+          pos.coords.longitude
+        );
+        onRecommendationsUpdate(generateSmartRecommendations(pos, weatherData));
         setIsLoading(false);
       },
-      (error) => {
-        setError(`Location access denied: ${error.message}`);
+      (err) => {
+        setError(`Location access denied: ${err.message}`);
         setIsLoading(false);
       },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 300000 // 5 minutes
-      }
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
     );
   };
 
   const getTimeBasedGreeting = () => {
     const { hour } = getCurrentTime();
-    if (hour < 10) return 'Good morning! ☀️';
-    if (hour < 14) return 'Good afternoon! 🌤️';
-    if (hour < 18) return 'Good afternoon! ☀️';
-    return 'Good evening! 🌙';
+    if (hour < 10) return "Good morning! ☀️";
+    if (hour < 14) return "Good afternoon! 🌤️";
+    if (hour < 18) return "Good afternoon! ☀️";
+    return "Good evening! 🌙";
   };
 
   return (
@@ -275,7 +259,6 @@ export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpda
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
             <CardContent className="p-6">
@@ -283,21 +266,19 @@ export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpda
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                   <Navigation className="h-8 w-8 text-primary" />
                 </div>
-                <div>
-                  <h3 className="font-serif text-xl font-semibold mb-2">
-                    {getTimeBasedGreeting()}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Let us find the perfect café for you based on your location, current weather, and time of day.
-                  </p>
-                </div>
+                <h3 className="font-serif text-xl font-semibold mb-2">
+                  {getTimeBasedGreeting()}
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Let us find the perfect café for you based on your location,
+                  current weather, and time of day.
+                </p>
                 <MotionButton
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
                 >
-                  <Button 
-                    onClick={requestLocation} 
+                  <Button
+                    onClick={requestLocation}
                     disabled={isLoading}
                     size="lg"
                     className="cafe-button shadow-cafe dark:shadow-cafe-dark"
@@ -326,7 +307,6 @@ export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpda
         <MotionDiv
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Card className="border-green-200 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
             <CardContent className="p-4">
@@ -344,12 +324,13 @@ export function LocationService({ cafes, onLocationUpdate, onRecommendationsUpda
                     </p>
                   </div>
                 </div>
-                
                 {weather && (
                   <div className="flex items-center space-x-2">
                     <div className="flex items-center space-x-1 text-sm">
                       {getWeatherIcon(weather.condition)}
-                      <span className="font-medium">{weather.temperature}°C</span>
+                      <span className="font-medium">
+                        {weather.temperature}°C
+                      </span>
                     </div>
                     <Badge variant="secondary" className="text-xs">
                       {weather.condition}

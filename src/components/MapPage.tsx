@@ -12,8 +12,8 @@ import type { FilterOptions, Cafe } from "../types/cafe";
 import cafesData from "../data/cafes.json";
 
 const InteractiveMap = lazy(() =>
-  import("../components/InteractiveMap").then((module) => ({
-    default: module.InteractiveMap,
+  import("../components/InteractiveMap").then((m) => ({
+    default: m.InteractiveMap,
   }))
 );
 
@@ -25,51 +25,43 @@ export function MapPage() {
   });
   const [selectedCafe, setSelectedCafe] = useState<string | null>(null);
 
-  const filteredCafes = useMemo(() => {
-    return cafesData.filter((cafe) => {
-      if (filters.search) {
-        const searchTerm = filters.search.toLowerCase();
-        if (
-          !cafe.name.toLowerCase().includes(searchTerm) &&
-          !cafe.address.toLowerCase().includes(searchTerm)
-        ) {
-          return false;
-        }
-      }
-      if (filters.amenities.length > 0) {
-        if (
-          !filters.amenities.every((amenity) =>
-            cafe.amenities.includes(amenity)
+  const filteredCafes = useMemo(
+    () =>
+      cafesData.filter((cafe) => {
+        if (filters.search) {
+          const s = filters.search.toLowerCase();
+          if (
+            !cafe.name.toLowerCase().includes(s) &&
+            !cafe.address.toLowerCase().includes(s)
           )
-        ) {
-          return false;
+            return false;
         }
-      }
-      if (cafe.rating < filters.minRating) {
-        return false;
-      }
-      return true;
-    });
-  }, [filters]);
+        if (
+          filters.amenities.length &&
+          !filters.amenities.every((a) => cafe.amenities.includes(a))
+        )
+          return false;
+        if (cafe.rating < filters.minRating) return false;
+        return true;
+      }),
+    [filters]
+  );
 
   const stats = useMemo(() => {
-    const stateDistribution = cafesData.reduce((acc, cafe) => {
+    const stateDist = cafesData.reduce((acc, cafe) => {
       const state = cafe.address.split(",").pop()?.trim() || "Unknown";
       acc[state] = (acc[state] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-
     const avgRating =
-      cafesData.reduce((sum, cafe) => sum + cafe.rating, 0) / cafesData.length;
-    const featuredCount = cafesData.filter((cafe) => cafe.featured).length;
-
+      cafesData.reduce((sum, c) => sum + c.rating, 0) / cafesData.length;
     return {
       total: cafesData.length,
       filtered: filteredCafes.length,
       avgRating: avgRating.toFixed(1),
-      featured: featuredCount,
-      states: Object.keys(stateDistribution).length,
-      stateDistribution,
+      featured: cafesData.filter((c) => c.featured).length,
+      states: Object.keys(stateDist).length,
+      stateDist,
     };
   }, [filteredCafes.length]);
 
@@ -86,54 +78,43 @@ export function MapPage() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="border-border bg-card">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Coffee className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold text-card-foreground">
-              {stats.filtered}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              {stats.filtered === stats.total
+        {[
+          {
+            icon: <Coffee className="h-5 w-5 text-primary" />,
+            value: stats.filtered,
+            label:
+              stats.filtered === stats.total
                 ? "Total Cafés"
-                : `of ${stats.total} Cafés`}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-border bg-card">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <MapPin className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold text-card-foreground">
-              {stats.states}
-            </div>
-            <div className="text-sm text-muted-foreground">States</div>
-          </CardContent>
-        </Card>
-        <Card className="border-border bg-card">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Star className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold text-card-foreground">
-              {stats.avgRating}
-            </div>
-            <div className="text-sm text-muted-foreground">Avg Rating</div>
-          </CardContent>
-        </Card>
-        <Card className="border-border bg-card">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Users className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold text-card-foreground">
-              {stats.featured}
-            </div>
-            <div className="text-sm text-muted-foreground">Featured</div>
-          </CardContent>
-        </Card>
+                : `of ${stats.total} Cafés`,
+          },
+          {
+            icon: <MapPin className="h-5 w-5 text-primary" />,
+            value: stats.states,
+            label: "States",
+          },
+          {
+            icon: <Star className="h-5 w-5 text-primary" />,
+            value: stats.avgRating,
+            label: "Avg Rating",
+          },
+          {
+            icon: <Users className="h-5 w-5 text-primary" />,
+            value: stats.featured,
+            label: "Featured",
+          },
+        ].map((s, i) => (
+          <Card key={i} className="border-border bg-card">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                {s.icon}
+              </div>
+              <div className="text-2xl font-bold text-card-foreground">
+                {s.value}
+              </div>
+              <div className="text-sm text-muted-foreground">{s.label}</div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       <SearchFilter filters={filters} onFiltersChange={setFilters} />
@@ -168,7 +149,7 @@ export function MapPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {Object.entries(stats.stateDistribution)
+            {Object.entries(stats.stateDist)
               .sort(([, a], [, b]) => b - a)
               .map(([state, count]) => (
                 <div
@@ -196,30 +177,32 @@ export function MapPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm shadow-lg border-2 border-white">
-                ☕
-              </div>
-              <div>
-                <div className="font-medium text-foreground">
-                  Featured Cafés
+            {[
+              {
+                color: "bg-blue-500",
+                size: "w-8 h-8",
+                label: "Featured Cafés",
+                desc: "Premium locations with excellent ratings",
+              },
+              {
+                color: "bg-green-500",
+                size: "w-6 h-6",
+                label: "Regular Cafés",
+                desc: "Great workspaces with good amenities",
+              },
+            ].map((f, i) => (
+              <div key={i} className="flex items-center space-x-3">
+                <div
+                  className={`${f.size} ${f.color} rounded-full flex items-center justify-center text-white text-sm shadow-lg border-2 border-white`}
+                >
+                  ☕
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  Premium locations with excellent ratings
+                <div>
+                  <div className="font-medium text-foreground">{f.label}</div>
+                  <div className="text-sm text-muted-foreground">{f.desc}</div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs shadow-lg border-2 border-white">
-                ☕
-              </div>
-              <div>
-                <div className="font-medium text-foreground">Regular Cafés</div>
-                <div className="text-sm text-muted-foreground">
-                  Great workspaces with good amenities
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="p-4 bg-muted rounded-lg border border-border">
             <div className="flex items-start space-x-2">
