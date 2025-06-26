@@ -210,6 +210,6 @@ MIT
 
 <div align="center">
 
-Made with ☕ and ❤️ by Andy
+Made with ☕ and ❤️ by [Andy](https://andersonjoseph.com/)
 
 </div>
